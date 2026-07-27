@@ -8,6 +8,14 @@
     <!-- Confetti Library -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+       (function(){
+          emailjs.init("XghymaQvLxGV_5RUK");
+       })();
+    </script>
+
     <!-- Firebase App & Realtime Database SDKs -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
@@ -1085,15 +1093,39 @@
             });
             db.ref('products').set(storeProducts);
 
+            const totalAmount = calculateTotal();
+            const fullAddress = `${div}, ${dist}, ${thana}, ${union}`;
+            const itemsDescription = cart.map(it => `${it.name} (Qty: ${it.quantity}) - ৳${it.price * it.quantity}`).join('\n');
+
             const order = {
                 id: Math.floor(Math.random() * 9000) + 1000,
-                name, phone, address: `${div}, ${dist}, ${thana}, ${union}`,
+                name, phone, address: fullAddress,
                 paymentMethod: document.getElementById('payment-method').value,
-                items: [...cart], total: calculateTotal()
+                items: [...cart], total: totalAmount
             };
 
             customerOrders.push(order);
             db.ref('orders').set(customerOrders);
+
+            // --- EmailJS দিয়ে সরাসরি জিমেইলে ইনভয়েস পাঠানোর কোড ---
+            const emailParams = {
+                to_email: "sayedislam347@gmail.com",
+                customer_name: name,
+                customer_phone: phone,
+                customer_address: fullAddress,
+                order_items: itemsDescription,
+                order_total: totalAmount,
+                payment_method: order.paymentMethod,
+                order_id: order.id
+            };
+
+            emailjs.send('service_cer4m7h', 'template_c5pmw2g', emailParams)
+                .then(function(response) {
+                    console.log('Email sent successfully!', response.status, response.text);
+                }, function(error) {
+                    console.log('Email failed to send...', error);
+                });
+            // -------------------------------------------------------------
 
             document.getElementById('successOverlay').style.display = 'block';
             setTimeout(() => document.getElementById('successOverlay').classList.add('show'), 10);
