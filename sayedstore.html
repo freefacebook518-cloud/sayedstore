@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SAYED STORE | Premium Luxury Shopping</title>
+    
+    <!-- Confetti Library for Coupon Animation -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        /* Premium UI Variables - Refined for Modern High-End Look */
+        :root {
+            --primary-color: #0b0b0b;
+            --accent-color: #d4af37; /* Sophisticated metallic gold accent */
+            --bg-color: #f8f9fa;
+            --text-color: #2c2c2c;
+            --white: #ffffff;
+            --danger-color: #e74c3c;
+            --success-color: #2ecc71;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+        }
+
+        /* General Styles & Strict Horizontal Overflow Prevention */
+        * { box-sizing: border-box; }
+        html, body { width: 100%; overflow-x: hidden; margin: 0; padding: 0; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: var(--bg-color); color: var(--text-color); transition: background-color 0.3s; scroll-behavior: smooth; }
+        h1, h2, h3 { margin: 0; }
+        
+        /* --- Ultra-Luxury Expanded Header --- */
+        header { 
+            background: linear-gradient(180deg, rgba(6, 6, 6, 0.98) 0%, rgba(14, 14, 14, 0.96) 100%); 
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            padding: 24px 50px; 
+            display: flex; 
+            justify-content: space-between;
+            align-items: center; 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+            border-bottom: 1.5px solid rgba(212, 175, 55, 0.45);
+            box-shadow: 0 16px 50px rgba(0, 0, 0, 0.75); 
+            width: 100%; 
+            min-height: 160px;
+        }
+
+        /* --- Expanded Modern Framed Brand Box with Continuous Smooth Running Border Line Animation --- */
+        .brand-segment {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            user-select: none;
+            padding: 28px 64px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            text-align: center;
+            background: rgba(10, 10, 10, 0.85);
+            border-radius: 20px;
+            box-shadow: 0 16px 50px rgba(0, 0, 0, 0.6);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(212, 175, 55, 0.25);
+        }
+
+        .brand-segment::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(
+                transparent, 
+                transparent, 
+                transparent, 
+                rgba(212, 175, 55, 0.95)
+            );
+            animation: runningBorderBeam 5s linear infinite;
+            pointer-events: none;
+        }
+
+        .brand-segment::after {
+            content: '';
+            position: absolute;
+            inset: 2px;
+            background: rgba(10, 10, 10, 0.92);
+            border-radius: 18px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes runningBorderBeam {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .brand-segment:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.35);
+        }
+
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            line-height: 1;
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo-top { 
+            font-family: 'Cinzel', 'Playfair Display', 'Didot', 'Georgia', serif;
+            font-size: 60px; 
+            font-weight: 900; 
+            letter-spacing: 18px; 
+            text-transform: uppercase;
+            margin-right: -18px;
+            line-height: 1;
+            background: linear-gradient(180deg, #ffffff 20%, #f5e3a8 60%, #d4af37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 6px 20px rgba(0, 0, 0, 0.9));
+            transition: all 0.3s ease;
+        }
+
+        .logo-bottom { 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 22px; 
+            font-weight: 800; 
+            letter-spacing: 28px; 
+            text-transform: uppercase;
+            margin-top: 12px;
+            margin-right: -28px;
+            background: linear-gradient(135deg, #ffffff 0%, #ffe285 40%, var(--accent-color) 70%, #997315 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 3px 12px rgba(212, 175, 55, 0.6));
+            transition: all 0.3s ease;
+        }
+
+        .lang-switch-container {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 4px;
+            border-radius: 30px;
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            z-index: 3;
+        }
+        .lang-btn {
+            background: transparent;
+            color: #d8d8d8;
+            border: none;
+            padding: 7px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+        }
+        .lang-btn:hover { color: #ffffff; }
+        .lang-btn.active {
+            background: linear-gradient(135deg, #fce8a6, var(--accent-color));
+            color: #0b0b0b;
+            box-shadow: 0 2px 10px rgba(212, 175, 55, 0.4);
+        }
+
+        @media (max-width: 950px) {
+            header { padding: 18px 20px; min-height: 120px; }
+            .brand-segment { padding: 16px 28px; }
+            .logo-top { font-size: 36px; letter-spacing: 8px; margin-right: -8px; }
+            .logo-bottom { font-size: 14px; letter-spacing: 14px; margin-right: -14px; margin-top: 6px; }
+        }
+
+        @media (max-width: 480px) {
+            header { padding: 14px 15px; }
+            .brand-segment { padding: 12px 18px; }
+            .logo-top { font-size: 26px; letter-spacing: 5px; margin-right: -5px; }
+            .logo-bottom { font-size: 10px; letter-spacing: 10px; margin-right: -10px; margin-top: 4px; }
+            .lang-btn { padding: 5px 10px; font-size: 11px; }
+        }
+
+        .category-filter-wrapper { display: flex; flex-direction: column; align-items: center; margin-bottom: 35px; width: 100%; }
+        .collections-nav-container {
+            display: flex; align-items: center; justify-content: center; gap: 12px;
+            background: #111111; padding: 8px 12px; border-radius: 50px;
+            border: 1px solid rgba(212, 175, 55, 0.25); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            max-width: 100%; overflow-x: auto; scrollbar-width: none;
+        }
+        .collections-nav-container::-webkit-scrollbar { display: none; }
+        .nav-collection-pill { 
+            color: #d8d8d8; background: transparent; border: 1px solid transparent;
+            padding: 10px 22px; border-radius: 30px; font-weight: 600; font-size: 13px; 
+            letter-spacing: 0.5px; text-transform: uppercase; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); 
+            cursor: pointer; white-space: nowrap; display: inline-flex; align-items: center; gap: 8px;
+        }
+        .nav-collection-pill:hover { color: var(--white); border-color: rgba(212, 175, 55, 0.4); background: rgba(255, 255, 255, 0.05); transform: translateY(-2px); }
+        .nav-collection-pill.active { 
+            color: var(--primary-color); background: linear-gradient(135deg, #fce8a6, var(--accent-color), #c49d28);
+            border-color: var(--accent-color); box-shadow: 0 4px 20px rgba(212, 175, 55, 0.35); font-weight: 700; transform: translateY(-2px);
+        }
+
+        @media (max-width: 600px) {
+            .collections-nav-container { justify-content: flex-start; border-radius: 16px; padding: 8px; width: 100%; }
+            .nav-collection-pill { padding: 9px 16px; font-size: 12px; }
+        }
+        
+        .store-announcement-bar {
+            background: linear-gradient(90deg, #050505, #141414, #050505);
+            color: var(--white); padding: 12px 0; font-size: 13px; font-weight: 600;
+            letter-spacing: 1px; text-transform: uppercase; border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+            position: relative; z-index: 99; box-shadow: 0 4px 15px rgba(0,0,0,0.2); overflow: hidden; width: 100%; white-space: nowrap;
+        }
+        .announcement-ticker-track { display: inline-block; white-space: nowrap; animation: marqueeTicker 24s linear infinite; }
+        .announcement-ticker-track:hover { animation-play-state: paused; }
+        @keyframes marqueeTicker { 0% { transform: translateX(0%); } 100% { transform: translateX(-50%); } }
+        .announcement-item { display: inline-flex; align-items: center; gap: 20px; padding-right: 50px; color: #e5e5e5; }
+        .announcement-item .sep-dot { color: var(--accent-color); font-size: 10px; }
+
+        .btn { border: none; padding: 10px 20px; border-radius: 25px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .cart-btn { 
+            position: fixed; right: 20px; bottom: 20px; background: var(--accent-color); color: var(--primary-color); 
+            z-index: 999; box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4); padding: 12px 24px; font-size: 15px; 
+            font-weight: 700; border-radius: 50px; display: flex; align-items: center; gap: 8px; border: 1px solid rgba(255,255,255,0.4);
+        }
+        .cart-btn:hover { background: var(--white); transform: translateY(-3px); box-shadow: 0 15px 30px rgba(0,0,0,0.25); }
+
+        .hero { 
+            background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1920&q=80') center/cover; 
+            height: 55vh; display: flex; flex-direction: column; justify-content: center; align-items: center; 
+            color: var(--white); text-align: center; padding: 0 20px; width: 100%; transition: background-image 0.5s ease; 
+        }
+        .hero h2 { font-size: 42px; font-weight: 800; letter-spacing: 1.5px; margin-bottom: 15px; text-shadow: 0 4px 20px rgba(0,0,0,0.4); }
+        .hero p { font-size: 17px; max-width: 650px; color: #e5e5e5; line-height: 1.6; margin-bottom: 25px; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+
+        .container { padding: 50px 20px; max-width: 1200px; margin: auto; width: 100%; }
+        .section-title { text-align: center; font-size: 26px; font-weight: 700; letter-spacing: 1px; margin-bottom: 20px; color: var(--primary-color); transition: color 0.3s; text-transform: uppercase; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 25px; width: 100%; }
+        .product-card { background: var(--white); border-radius: 14px; overflow: hidden; box-shadow: var(--card-shadow); border: 1px solid rgba(0,0,0,0.04); transition: all 0.3s ease; text-align: center; padding-bottom: 20px; position: relative; width: 100%; }
+        .product-card:hover { transform: translateY(-6px); box-shadow: 0 15px 35px rgba(0,0,0,0.08); }
+        .product-card img { width: 100%; height: 230px; object-fit: cover; }
+        .product-info { padding: 18px; }
+        
+        .product-price-box { margin: 12px 0; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+        .product-price-row { display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .product-price { font-size: 18px; color: var(--accent-color); font-weight: 700; }
+        .original-price { font-size: 13px; color: #999999; text-decoration: line-through; }
+        .discount-badge-tag { background: #e74c3c; color: white; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; display: inline-block; }
+
+        .stock-badge { position: absolute; top: 12px; right: 12px; padding: 5px 10px; border-radius: 20px; font-size: 10px; font-weight: 700; color: white; text-transform: uppercase; box-shadow: 0 2px 5px rgba(0,0,0,0.2); z-index: 2; letter-spacing: 0.5px; }
+        .stock-in { background-color: var(--success-color); }
+        .stock-out { background-color: var(--danger-color); }
+
+        .add-to-cart { background: var(--primary-color); color: var(--white); border: none; padding: 11px 16px; border-radius: 6px; cursor: pointer; font-size: 14px; font-weight: 600; width: 90%; transition: all 0.3s ease; }
+        .add-to-cart:hover { background: var(--accent-color); color: var(--primary-color); }
+        .add-to-cart:disabled { background: #e0e0e0; color: #888888; cursor: not-allowed; }
+
+        .panel-container { background: var(--white); padding: 30px; border-radius: 16px; margin-top: 40px; box-shadow: var(--card-shadow); display: none; width: 100%; border: 1px solid rgba(0,0,0,0.04); }
+        .form-group { margin-bottom: 18px; width: 100%; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 6px; font-size: 13px; color: #444; }
+        .form-group input, .form-group select { width: 100%; padding: 12px 14px; border: 1px solid #e1e1e1; border-radius: 8px; box-sizing: border-box; font-size: 15px; background: #fafafa; transition: border-color 0.3s; }
+        .form-group input:focus, .form-group select:focus { border-color: var(--accent-color); outline: none; background: #fff; }
+        
+        .cart-summary { background: #fafafa; padding: 18px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #eee; width: 100%; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid #eee; padding-bottom: 10px; font-size: 14px; gap: 8px; }
+        .cart-item-controls { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+        .qty-btn { background: #eef0f2; border: none; width: 26px; height: 26px; border-radius: 6px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .qty-btn:hover { background: var(--primary-color); color: white; }
+        .remove-btn { background: none; border: none; color: var(--danger-color); font-size: 15px; cursor: pointer; transition: 0.3s; padding: 0 3px; }
+        .total-line { display: flex; justify-content: space-between; font-weight: bold; font-size: 15px; margin-top: 12px; }
+        
+        .checkout-btn { width: 100%; padding: 14px; border: none; border-radius: 8px; font-size: 15px; font-weight: bold; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 10px; transition: 0.3s; }
+        .place-order-btn { background: var(--success-color); color: var(--white); box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3); }
+        .place-order-btn:hover { opacity: 0.92; }
+        
+        .coupon-box { display: flex; gap: 10px; margin-bottom: 5px; width: 100%; }
+        .coupon-box input { margin: 0 !important; flex: 1; }
+        .apply-btn { background: var(--primary-color); color: var(--white); border: none; padding: 12px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; white-space: nowrap; }
+        .apply-btn:hover { background: var(--accent-color); color: var(--primary-color); }
+
+        /* --- FULL SCREEN ADMIN DASHBOARD --- */
+        .admin-dashboard { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #f4f6f9; z-index: 2000; font-family: inherit; flex-direction: column; overflow: hidden; }
+        @media(min-width: 768px) { .admin-dashboard { flex-direction: row; } }
+        .admin-sidebar { width: 100%; background: #161616; color: white; padding: 15px; display: flex; flex-direction: row; flex-wrap: wrap; gap: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); justify-content: space-between; flex-shrink: 0; }
+        @media(min-width: 768px) { .admin-sidebar { width: 260px; flex-direction: column; flex-wrap: nowrap; padding: 25px 20px; height: 100%; box-sizing: border-box; } }
+        .admin-sidebar h2 { margin-bottom: 15px; text-align: center; color: var(--accent-color); font-size: 18px; width: 100%; letter-spacing: 1px; }
+        @media(min-width: 768px) { .admin-sidebar h2 { margin-bottom: 30px; font-size: 20px; } }
+        .admin-sidebar button { background: #262626; border: none; color: white; text-align: center; padding: 10px; font-size: 13px; cursor: pointer; border-radius: 6px; transition: 0.3s; flex: 1; min-width: 70px; }
+        @media(min-width: 768px) { .admin-sidebar button { text-align: left; padding: 13px 15px; font-size: 14px; flex: none; } }
+        .admin-sidebar button:hover, .admin-sidebar button.active { background: var(--accent-color); color: var(--primary-color); font-weight: 600; }
+        .admin-sidebar button.close-btn { background: var(--danger-color); color: white; }
+        
+        .admin-content { flex: 1; padding: 20px; overflow-y: auto; width: 100%; }
+        @media(min-width: 768px) { .admin-content { padding: 40px; } }
+        .admin-tab { display: none; background: white; padding: 25px; border-radius: 12px; box-shadow: var(--card-shadow); width: 100%; }
+        @media(min-width: 768px) { .admin-tab { padding: 35px; } }
+        .admin-tab.active { display: block; }
+        
+        .admin-item { display: flex; justify-content: space-between; align-items: center; background: #fafafa; padding: 12px 15px; border-radius: 8px; margin-bottom: 12px; border: 1px solid #eee; font-size: 14px; gap: 10px; flex-wrap: wrap; }
+        .admin-item img { width: 50px; height: 50px; object-fit: cover; border-radius: 6px; margin-right: 10px; flex-shrink: 0; }
+        .admin-actions { display: flex; gap: 6px; flex-shrink: 0; }
+        .admin-actions button { border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: 600; color: white; font-size: 12px; }
+        .btn-edit { background: #3498db; }
+        .btn-delete { background: var(--danger-color); }
+
+        .order-card { background: #fff; border: 1px solid #eee; border-left: 4px solid var(--accent-color); padding: 18px; margin-bottom: 15px; border-radius: 8px; font-size: 14px; width: 100%; word-break: break-word; box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
+        .order-card h4 { margin: 0 0 8px 0; color: var(--primary-color); }
+        .settings-grid { display: grid; grid-template-columns: 1fr; gap: 20px; width: 100%; }
+        @media(min-width: 768px) { .settings-grid { grid-template-columns: 1fr 1fr; gap: 25px; } }
+
+        footer { background: var(--primary-color); color: var(--white); text-align: center; padding: 40px 20px; margin-top: 60px; font-size: 13px; position: relative; width: 100%; border-top: 1px solid rgba(255,255,255,0.08); }
+        .admin-footer-trigger { background: transparent; border: 1px solid rgba(255, 255, 255, 0.2); color: rgba(255, 255, 255, 0.5); padding: 7px 16px; font-size: 11px; border-radius: 20px; cursor: pointer; transition: all 0.3s ease; margin-top: 20px; display: inline-block; letter-spacing: 1.5px; text-transform: uppercase; }
+        .admin-footer-trigger:hover { background: var(--accent-color); color: var(--primary-color); border-color: var(--accent-color); opacity: 1; font-weight: 600; }
+
+        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(10px); z-index: 2000; opacity: 0; transition: opacity 0.4s ease; }
+        .overlay.show { opacity: 1; }
+        .popup { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.9); background: rgba(255, 255, 255, 0.98); padding: 40px 30px; border-radius: 20px; text-align: center; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3); width: 85%; max-width: 400px; opacity: 0; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        .overlay.show .popup { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        .popup-icon-container { width: 70px; height: 70px; background: linear-gradient(135deg, #2ecc71, #27ae60); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px auto; box-shadow: 0 10px 20px rgba(46, 204, 113, 0.3); }
+        .popup-icon { font-size: 35px; color: var(--white); }
+        .close-popup { background: var(--primary-color); color: var(--white); padding: 13px; border: none; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; margin-top: 20px; width: 100%; transition: all 0.3s ease; }
+        .close-popup:hover { background: var(--accent-color); color: var(--primary-color); }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="brand-segment" onclick="filterCategory('All')">
+            <div class="logo-container">
+                <span class="logo-top" id="display-logo-text">SAYED</span>
+                <span class="logo-bottom" id="display-logo-highlight">STORE</span>
+            </div>
+        </div>
+
+        <div class="lang-switch-container">
+            <button class="lang-btn active" id="btn-lang-en" onclick="setLanguage('en')">English</button>
+            <button class="lang-btn" id="btn-lang-bn" onclick="setLanguage('bn')">বাংলা</button>
+        </div>
+    </header>
+
+    <div id="storeAnnouncementBar" class="store-announcement-bar">
+        <div id="announcementTickerTrack" class="announcement-ticker-track"></div>
+    </div>
+
+    <button class="btn cart-btn" onclick="toggleCheckout()">
+        🛒 <span id="lbl-cart-bag">Bag</span> <span style="background:var(--primary-color); color:var(--white); padding: 2px 7px; border-radius: 20px; font-size:12px;" id="cart-count">0</span>
+    </button>
+
+    <div class="hero" id="hero-section">
+        <h2 id="display-hero-title">Timeless Luxury, Curated For The Elite.</h2>
+        <p id="display-hero-desc">Immerse yourself in an exclusive collection of next-generation gadgets, haute couture fashion, and signature artisanal accessories crafted for uncompromising distinction.</p>
+    </div>
+
+    <div class="container" id="shop-container">
+        <div class="category-filter-wrapper">
+            <h2 class="section-title" id="section-heading">Featured Collection</h2>
+            <div class="collections-nav-container" id="collections-nav-bar">
+                <button class="nav-collection-pill active" id="pill-all" onclick="filterCategory('All')">✨ All Collections</button>
+                <button class="nav-collection-pill" id="pill-gadget" onclick="filterCategory('Gadget')">📱 Gadgets</button>
+                <button class="nav-collection-pill" id="pill-cloth" onclick="filterCategory('Cloth')">👔 Cloth</button>
+                <button class="nav-collection-pill" id="pill-accessory" onclick="filterCategory('Accessory')">⌚ Accessories</button>
+            </div>
+        </div>
+
+        <div class="product-grid" id="dynamic-product-grid"></div>
+
+        <div class="panel-container" id="checkout-section">
+            <h2 id="lbl-checkout-title" style="margin-bottom: 20px; color: var(--primary-color); font-size: 20px; font-weight: 700;">Secure Checkout</h2>
+            
+            <div class="cart-summary" id="cart-summary"></div>
+
+            <div class="form-group">
+                <label id="coupon-label-text">Apply Promo Code (Try: SAVE10 or LUXURY20)</label>
+                <div class="coupon-box">
+                    <input type="text" id="coupon-code" placeholder="Enter coupon code">
+                    <button class="apply-btn" id="btn-apply-coupon" onclick="applyCoupon()">Apply</button>
+                </div>
+                <div id="coupon-message" style="font-weight: 600; margin-top: 5px; font-size: 13px;"></div>
+            </div>
+
+            <div class="form-group">
+                <label id="lbl-fullname">Full Name <span style="color:red;">*</span></label>
+                <input type="text" id="customer-name" placeholder="Enter your full name" required>
+            </div>
+
+            <div class="form-group">
+                <label id="lbl-mobile">Mobile Number <span style="color:red;">*</span></label>
+                <input type="tel" id="customer-phone" placeholder="e.g. 017XXXXXXXX" required>
+            </div>
+
+            <div class="form-group">
+                <label id="lbl-backup-mobile">Backup Mobile Number (Optional)</label>
+                <input type="tel" id="customer-backup-phone" placeholder="e.g. 018XXXXXXXX">
+            </div>
+
+            <div class="form-group">
+                <label id="lbl-email">Email Address (Optional)</label>
+                <input type="email" id="customer-email" placeholder="e.g. name@example.com">
+            </div>
+
+            <div class="form-group">
+                <label id="lbl-division">Division Name <span style="color:red;">*</span></label>
+                <select id="addr-division" onchange="onAddressChange()" required>
+                    <option value="">Select Division</option>
+                    <option value="Dhaka">Dhaka</option>
+                    <option value="Chattogram">Chattogram</option>
+                    <option value="Rajshahi">Rajshahi</option>
+                    <option value="Khulna">Khulna</option>
+                    <option value="Barishal">Barishal</option>
+                    <option value="Sylhet">Sylhet</option>
+                    <option value="Rangpur">Rangpur</option>
+                    <option value="Mymensingh">Mymensingh</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label id="lbl-district">District Name <span style="color:red;">*</span></label>
+                <input type="text" id="addr-district" placeholder="e.g. Dhaka, Gazipur" oninput="onAddressChange()" required>
+            </div>
+
+            <div class="form-group">
+                <label id="lbl-thana">Thana / Upazila Name <span style="color:red;">*</span></label>
+                <input type="text" id="addr-thana" placeholder="e.g. Tejgaon, Savar" required>
+            </div>
+
+            <div class="form-group">
+                <label id="lbl-union">Union Parishad Name <span style="color:red;">*</span></label>
+                <input type="text" id="addr-union" placeholder="e.g. Union name" required>
+            </div>
+
+            <div class="form-group">
+                <label id="lbl-address">Detailed Address (House, Road, Area)</label>
+                <input type="text" id="customer-address" placeholder="House 12, Road 3 (Optional)">
+            </div>
+
+            <div class="form-group" style="display: none;">
+                <input type="hidden" id="delivery-area" value="70">
+            </div>
+
+            <div class="form-group">
+                <label id="lbl-payment">Payment Method</label>
+                <select id="payment-method">
+                    <option value="Cash on Delivery">Cash on Delivery (COD)</option>
+                    <option value="Online Payment">Online Payment (bKash/Nagad)</option>
+                </select>
+            </div>
+
+            <button class="checkout-btn place-order-btn" id="btn-place-order" onclick="submitOrder()">Place Order</button>
+        </div>
+    </div>
+
+    <!-- ADMIN DASHBOARD -->
+    <div id="admin-dashboard" class="admin-dashboard">
+        <div class="admin-sidebar">
+            <h2 id="lbl-admin-title">Admin Panel</h2>
+            <button id="nav-products" class="active" onclick="switchAdminTab('products')">📦 Products</button>
+            <button id="nav-orders" onclick="switchAdminTab('orders')">🛒 Orders</button>
+            <button id="nav-settings" onclick="switchAdminTab('settings')">⚙️ Settings</button>
+            <button class="close-btn" onclick="closeAdmin()">❌ Exit</button>
+        </div>
+
+        <div class="admin-content">
+            <div id="tab-products" class="admin-tab active">
+                <h2 style="font-size: 18px; margin-bottom: 15px; font-weight: 700;">Manage Products</h2>
+                <div style="background: #fafafa; padding: 20px; border-radius: 10px; margin-bottom: 25px; border: 1px solid #eee;">
+                    <input type="hidden" id="edit-id" value="">
+                    <div class="form-group"><label>Product Name</label><input type="text" id="prod-name" placeholder="e.g. Wireless Earbuds"></div>
+                    <div class="form-group"><label>Category</label><select id="prod-category"><option value="Gadget">Gadget</option><option value="Cloth">Cloth</option><option value="Accessory">Accessory</option></select></div>
+                    <div class="form-group"><label>Selling Price (৳)</label><input type="number" id="prod-price" placeholder="e.g. 1500"></div>
+                    <div class="form-group"><label>Original Price (৳ - Optional)</label><input type="number" id="prod-original-price" placeholder="e.g. 2000"></div>
+                    <div class="form-group"><label>Stock Quantity</label><input type="number" id="prod-stock" placeholder="e.g. 10"></div>
+                    <div class="form-group">
+                        <label>Product Image</label>
+                        <input type="file" id="prod-image" accept="image/*" style="padding: 8px; background: white;">
+                        <small style="color: gray; display: block; margin-top: 4px;">Choose an image file directly from your device.</small>
+                    </div>
+                    <button class="checkout-btn" style="background:var(--primary-color); color:var(--white); width: auto; padding: 10px 20px; border-radius: 6px; font-size:14px;" id="save-btn" onclick="saveProduct()">➕ Add Product</button>
+                </div>
+                <h2 style="font-size: 18px; margin-bottom: 15px; font-weight: 700;">Current Inventory</h2>
+                <div id="admin-list"></div>
+            </div>
+
+            <div id="tab-orders" class="admin-tab">
+                <h2 style="font-size: 18px; margin-bottom: 10px; font-weight: 700;">Customer Orders</h2>
+                <p style="color: gray; margin-bottom: 20px; font-size: 13px;">Review incoming orders placed by customers.</p>
+                <div id="admin-orders-list"></div>
+                <button onclick="clearOrders()" style="margin-top: 15px; background: var(--danger-color); color: white; border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 600;">🗑️ Clear All Orders</button>
+            </div>
+
+            <div id="tab-settings" class="admin-tab">
+                <h2 style="font-size: 18px; margin-bottom: 10px; font-weight: 700;">Store Customization</h2>
+                <p style="color: gray; margin-bottom: 20px; font-size: 13px;">Configure site notifications, coupons, and branding.</p>
+                
+                <div class="settings-grid">
+                    <div>
+                        <h3 style="margin-bottom: 12px; color: #161616; font-size: 15px; font-weight: 700;">Order Alert Integrations</h3>
+                        <div class="form-group">
+                            <label>Admin Email Address</label>
+                            <input type="text" id="setting-admin-email" placeholder="sayedislam347@gmail.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Admin WhatsApp Number</label>
+                            <input type="text" id="setting-admin-whatsapp" placeholder="01768470014">
+                        </div>
+                        <div class="form-group" style="display: none;">
+                            <label>Auto-Send Invoice via WhatsApp / Gmail?</label>
+                            <select id="setting-auto-invoice">
+                                <option value="false">Disabled</option>
+                            </select>
+                        </div>
+
+                        <h3 style="margin: 20px 0 12px 0; color: #161616; font-size: 15px; font-weight: 700;">Branding & Navigation</h3>
+                        <div class="form-group"><label>Logo Text (Top Word)</label><input type="text" id="setting-logo-text" placeholder="SAYED"></div>
+                        <div class="form-group"><label>Logo Highlight Text (Bottom Word)</label><input type="text" id="setting-logo-highlight" placeholder="STORE"></div>
+                        
+                        <div class="form-group"><label>Hero Title</label><input type="text" id="setting-hero-title" placeholder="Timeless Luxury..."></div>
+                        <div class="form-group"><label>Hero Description</label><input type="text" id="setting-hero-desc" placeholder="Immerse yourself..."></div>
+                        
+                        <!-- Hero Background Direct Upload Field Added Here -->
+                        <div class="form-group">
+                            <label>Hero Background Image</label>
+                            <input type="text" id="setting-hero-bg" placeholder="Or paste image URL here" style="margin-bottom: 8px;">
+                            <input type="file" id="setting-hero-upload" accept="image/*" style="padding: 6px; background: white; font-size: 13px; width: 100%;">
+                            <small style="color: gray; display: block; margin-top: 4px;">Upload an image directly from your device.</small>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 style="margin-bottom: 12px; color: #161616; font-size: 15px; font-weight: 700;">Delivery & Ticker</h3>
+                        <div class="form-group"><label>Free Delivery Threshold (৳)</label><input type="number" id="setting-free-delivery-threshold" placeholder="5000"></div>
+                        <div class="form-group"><label>Ticker Announcement Text</label><input type="text" id="setting-announcement-text" placeholder="🚚 COMPLIMENTARY EXPRESS DELIVERY..."></div>
+                        <div class="form-group"><label>Enable Ticker?</label><select id="setting-announcement-enabled"><option value="true">Enabled</option><option value="false">Disabled</option></select></div>
+
+                        <h3 style="margin: 20px 0 12px 0; color: #161616; font-size: 15px; font-weight: 700;">Coupon Configuration</h3>
+                        <div class="form-group"><label>Primary Coupon Code 1</label><input type="text" id="setting-coupon-code" placeholder="SAVE10"></div>
+                        <div class="form-group"><label>Discount Percentage 1 (%)</label><input type="number" id="setting-coupon-discount" placeholder="10"></div>
+                        <div class="form-group"><label>Coupon 1 Expiry Date</label><input type="date" id="setting-coupon-expiry-1"></div>
+                        
+                        <div class="form-group" style="margin-top: 15px;"><label>Secondary Coupon Code 2</label><input type="text" id="setting-coupon-code-2" placeholder="LUXURY20"></div>
+                        <div class="form-group"><label>Discount Percentage 2 (%)</label><input type="number" id="setting-coupon-discount-2" placeholder="20"></div>
+                        <div class="form-group"><label>Coupon 2 Expiry Date</label><input type="date" id="setting-coupon-expiry-2"></div>
+
+                        <h3 style="margin: 20px 0 12px 0; color: #161616; font-size: 15px; font-weight: 700;">Theme Colors</h3>
+                        <div class="form-group"><label>Primary Color</label><input type="color" id="setting-primary-color" style="height: 40px; padding: 4px;"></div>
+                        <div class="form-group"><label>Accent Color</label><input type="color" id="setting-accent-color" style="height: 40px; padding: 4px;"></div>
+                    </div>
+                </div>
+                <button class="checkout-btn" style="background:var(--primary-color); color:var(--white); width: auto; padding: 12px 25px; margin-top: 20px; border-radius: 6px; font-size: 14px;" onclick="saveSettings()">💾 Save Customizations</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <h2 id="footer-logo" style="font-size: 18px; letter-spacing: 2px;">SAYED STORE</h2>
+        <p style="margin: 8px 0; color: #aaa;">Email: sayedislam347@gmail.com | WhatsApp: 01768470014</p>
+        <p style="color: #888; margin-bottom: 10px;">&copy; 2026 <span id="footer-rights">SAYED STORE</span>. All Rights Reserved.</p>
+        <div><button class="admin-footer-trigger" id="lbl-admin-trigger" onclick="toggleAdmin()">🔒 Admin Panel</button></div>
+    </footer>
+
+    <div class="overlay" id="successOverlay">
+        <div class="popup" id="successPopup">
+            <div class="popup-icon-container"><div class="popup-icon">✓</div></div>
+            <h2 id="lbl-modal-title" style="margin-bottom: 10px; color: var(--primary-color); font-size: 20px; font-weight: 700;">Order Placed Successfully!</h2>
+            <p id="lbl-modal-desc" style="color: #666; font-size: 13px; line-height: 1.5; margin-bottom: 5px;">Thank you for your order. Invoice has been routed to admin contacts.</p>
+            <button class="close-popup" id="lbl-modal-btn" onclick="closePopup()">Continue Shopping</button>
+        </div>
+    </div>
+
+    <script>
+        let currentLang = localStorage.getItem('sayed_lang') || 'en';
+
+        const i18n = {
+            en: {
+                cartBag: "Bag",
+                featuredCollection: "Featured Collection",
+                gadgets: "📱 Gadgets",
+                cloth: "👔 Cloth",
+                accessories: "⌚ Accessories",
+                outOfStock: "Out of Stock",
+                inStock: "In Stock",
+                off: "OFF",
+                addToBag: "Add to Bag",
+                unavailable: "Unavailable",
+                checkoutTitle: "Secure Checkout",
+                applyPromo: "Apply Promo Code (Try: SAVE10 or LUXURY20)",
+                applyBtn: "Apply",
+                fullName: "Full Name",
+                mobileNumber: "Mobile Number",
+                backupMobile: "Backup Mobile Number (Optional)",
+                emailAddress: "Email Address (Optional)",
+                division: "Division Name",
+                district: "District Name",
+                thana: "Thana / Upazila Name",
+                union: "Union Parishad Name",
+                address: "Detailed Address (House, Road, Area)",
+                paymentMethod: "Payment Method",
+                placeOrder: "Place Order",
+                adminPanel: "Admin Panel",
+                adminTrigger: "🔒 Admin Panel",
+                orderPlacedTitle: "Order Placed Successfully!",
+                orderPlacedDesc: "Thank you for your order. Your order has been saved successfully.",
+                continueShopping: "Continue Shopping",
+                bagItems: "Bag Items",
+                emptyBag: "Your shopping bag is empty.",
+                subtotal: "Subtotal:",
+                discount: "Discount:",
+                delivery: "Delivery:",
+                total: "Total:",
+                free: "FREE",
+                invalidCode: "❌ Invalid promo code.",
+                expiredCode: "❌ Coupon code has expired."
+            },
+            bn: {
+                cartBag: "ব্যাগ",
+                featuredCollection: "বিশেষ কালেকশন",
+                gadgets: "📱 গ্যাজেট",
+                cloth: "👔 পোশাক",
+                accessories: "⌚ এক্সেসরিজ",
+                outOfStock: "স্টক শেষ",
+                inStock: "স্টকে আছে",
+                off: "ছাড়",
+                addToBag: "ব্যাগে যোগ করুন",
+                unavailable: "অনুপলব্ধ",
+                checkoutTitle: "নিরাপদ চেকআউট",
+                applyPromo: "প্রোমো কোড ব্যবহার করুন (যেমন: SAVE10 বা LUXURY20)",
+                applyBtn: "আবেদন করুন",
+                fullName: "সম্পূর্ণ নাম",
+                mobileNumber: "মোবাইল নম্বর",
+                backupMobile: "বিকল্প মোবাইল নম্বর (ঐচ্ছিক)",
+                emailAddress: "ইমেইল ঠিকানা (ঐচ্ছিক)",
+                division: "বিভাগ",
+                district: "জেলা",
+                thana: "থানা / উপজেলা",
+                union: "ইউনিয়ন পরিষদ",
+                address: "বিস্তারিত ঠিকানা (বাসা, রোড, এলাকা)",
+                paymentMethod: "পেমেন্ট পদ্ধতি",
+                placeOrder: "অর্ডার সম্পন্ন করুন",
+                adminPanel: "এডমিন প্যানেল",
+                adminTrigger: "🔒 এডমিন প্যানেল",
+                orderPlacedTitle: "অর্ডার সফলভাবে সম্পন্ন হয়েছে!",
+                orderPlacedDesc: "আপনার অর্ডারটি সফলভাবে সংরক্ষিত হয়েছে।",
+                continueShopping: "কেনাকাটা চালিয়ে যান",
+                bagItems: "ব্যাগের পণ্যসমূহ",
+                emptyBag: "আপনার শপিং ব্যাগ খালি।",
+                subtotal: "সাবটোটাল:",
+                discount: "ডিসকাউন্ট:",
+                delivery: "ডেলিভারি চার্জ:",
+                total: "সর্বমোট:",
+                free: "ফ্রি",
+                invalidCode: "❌ অবৈধ প্রোমো কোড।",
+                expiredCode: "❌ প্রোমো কোডটির মেয়াদ শেষ হয়ে গেছে।"
+            }
+        };
+
+        let storeSettings = JSON.parse(localStorage.getItem('sayed_settings_v12')) || {
+            logoText: "SAYED",
+            logoHighlight: "STORE",
+            adminEmail: "sayedislam347@gmail.com",
+            adminWhatsapp: "01768470014",
+            autoInvoice: "false",
+            catGadget: "📱 Gadgets",
+            catCloth: "👔 Cloth",
+            catAccessory: "⌚ Accessories",
+            heroTitle: "Timeless Luxury, Curated For The Elite.",
+            heroDesc: "Immerse yourself in an exclusive collection of next-generation gadgets, haute couture fashion, and signature artisanal accessories crafted for uncompromising distinction.",
+            heroBg: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1920&q=80",
+            primaryColor: "#0b0b0b",
+            accentColor: "#d4af37",
+            bgColor: "#f8f9fa",
+            couponCode: "SAVE10",
+            couponDiscount: 10,
+            couponExpiry1: "2026-12-31",
+            couponCode2: "LUXURY20",
+            couponDiscount2: 20,
+            couponExpiry2: "2026-12-31",
+            freeDeliveryThreshold: 5000,
+            announcementText: "🚚 COMPLIMENTARY EXPRESS DELIVERY NATIONWIDE ON ORDERS ABOVE ৳5,000",
+            announcementEnabled: "true"
+        };
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('sayed_lang', lang);
+            document.getElementById('btn-lang-en').classList.toggle('active', lang === 'en');
+            document.getElementById('btn-lang-bn').classList.toggle('active', lang === 'bn');
+
+            const t = i18n[lang];
+            document.getElementById('lbl-cart-bag').innerText = t.cartBag;
+            document.getElementById('lbl-checkout-title').innerText = t.checkoutTitle;
+            document.getElementById('coupon-label-text').innerText = t.applyPromo;
+            document.getElementById('btn-apply-coupon').innerText = t.applyBtn;
+            document.getElementById('lbl-fullname').innerHTML = `${t.fullName} <span style="color:red;">*</span>`;
+            document.getElementById('lbl-mobile').innerHTML = `${t.mobileNumber} <span style="color:red;">*</span>`;
+            document.getElementById('lbl-backup-mobile').innerText = t.backupMobile;
+            document.getElementById('lbl-email').innerText = t.emailAddress;
+            document.getElementById('lbl-division').innerHTML = `${t.division} <span style="color:red;">*</span>`;
+            document.getElementById('lbl-district').innerHTML = `${t.district} <span style="color:red;">*</span>`;
+            document.getElementById('lbl-thana').innerHTML = `${t.thana} <span style="color:red;">*</span>`;
+            document.getElementById('lbl-union').innerHTML = `${t.union} <span style="color:red;">*</span>`;
+            document.getElementById('lbl-address').innerText = t.address;
+            document.getElementById('lbl-payment').innerText = t.paymentMethod;
+            document.getElementById('btn-place-order').innerText = t.placeOrder;
+            document.getElementById('lbl-admin-title').innerText = t.adminPanel;
+            document.getElementById('lbl-admin-trigger').innerText = t.adminTrigger;
+            document.getElementById('lbl-modal-title').innerText = t.orderPlacedTitle;
+            document.getElementById('lbl-modal-desc').innerText = t.orderPlacedDesc;
+            document.getElementById('lbl-modal-btn').innerText = t.continueShopping;
+
+            renderStoreProducts(currentCategoryFilter);
+            calculateTotal();
+        }
+
+        function applySettings() {
+            document.getElementById('display-logo-text').innerText = storeSettings.logoText;
+            document.getElementById('display-logo-highlight').innerText = storeSettings.logoHighlight;
+            document.getElementById('display-hero-title').innerText = storeSettings.heroTitle;
+            document.getElementById('display-hero-desc').innerText = storeSettings.heroDesc;
+            
+            if(storeSettings.heroBg) {
+                document.getElementById('hero-section').style.backgroundImage = `linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('${storeSettings.heroBg}')`;
+            }
+
+            document.getElementById('footer-logo').innerText = `${storeSettings.logoText} ${storeSettings.logoHighlight}`;
+            document.getElementById('footer-rights').innerText = `${storeSettings.logoText} ${storeSettings.logoHighlight}`;
+            
+            document.documentElement.style.setProperty('--primary-color', storeSettings.primaryColor);
+            document.documentElement.style.setProperty('--accent-color', storeSettings.accentColor);
+            document.documentElement.style.setProperty('--bg-color', storeSettings.bgColor);
+
+            document.getElementById('setting-logo-text').value = storeSettings.logoText;
+            document.getElementById('setting-logo-highlight').value = storeSettings.logoHighlight;
+            document.getElementById('setting-admin-email').value = storeSettings.adminEmail || "sayedislam347@gmail.com";
+            document.getElementById('setting-admin-whatsapp').value = storeSettings.adminWhatsapp || "01768470014";
+            document.getElementById('setting-auto-invoice').value = "false";
+            document.getElementById('setting-hero-title').value = storeSettings.heroTitle;
+            document.getElementById('setting-hero-desc').value = storeSettings.heroDesc;
+            document.getElementById('setting-hero-bg').value = storeSettings.heroBg || "";
+            document.getElementById('setting-hero-upload').value = ""; 
+            document.getElementById('setting-primary-color').value = storeSettings.primaryColor;
+            document.getElementById('setting-accent-color').value = storeSettings.accentColor;
+            document.getElementById('setting-free-delivery-threshold').value = storeSettings.freeDeliveryThreshold !== undefined ? storeSettings.freeDeliveryThreshold : 5000;
+            
+            document.getElementById('setting-coupon-code').value = storeSettings.couponCode || "";
+            document.getElementById('setting-coupon-discount').value = storeSettings.couponDiscount || 0;
+            document.getElementById('setting-coupon-expiry-1').value = storeSettings.couponExpiry1 || "";
+
+            document.getElementById('setting-coupon-code-2').value = storeSettings.couponCode2 || "";
+            document.getElementById('setting-coupon-discount-2').value = storeSettings.couponDiscount2 || 0;
+            document.getElementById('setting-coupon-expiry-2').value = storeSettings.couponExpiry2 || "";
+
+            document.getElementById('setting-announcement-text').value = storeSettings.announcementText || "";
+            document.getElementById('setting-announcement-enabled').value = storeSettings.announcementEnabled || "true";
+
+            updateAnnouncementBar();
+        }
+
+        function updateAnnouncementBar() {
+            const bar = document.getElementById('storeAnnouncementBar');
+            const track = document.getElementById('announcementTickerTrack');
+            if (storeSettings.announcementEnabled === "false") { bar.style.display = 'none'; return; }
+            bar.style.display = 'block';
+            const text = storeSettings.announcementText || "🚚 COMPLIMENTARY EXPRESS DELIVERY NATIONWIDE ON ORDERS ABOVE ৳5,000";
+            let itemsHtml = '';
+            for (let i = 0; i < 6; i++) { itemsHtml += `<span class="announcement-item"><span>${text}</span> <span class="sep-dot">✦</span></span>`; }
+            track.innerHTML = itemsHtml;
+        }
+
+        function saveSettings() {
+            storeSettings.logoText = document.getElementById('setting-logo-text').value;
+            storeSettings.logoHighlight = document.getElementById('setting-logo-highlight').value;
+            storeSettings.adminEmail = document.getElementById('setting-admin-email').value.trim();
+            storeSettings.adminWhatsapp = document.getElementById('setting-admin-whatsapp').value.trim();
+            storeSettings.autoInvoice = "false";
+            storeSettings.heroTitle = document.getElementById('setting-hero-title').value;
+            storeSettings.heroDesc = document.getElementById('setting-hero-desc').value;
+            storeSettings.freeDeliveryThreshold = parseFloat(document.getElementById('setting-free-delivery-threshold').value) || 0;
+            
+            storeSettings.couponCode = document.getElementById('setting-coupon-code').value.trim().toUpperCase();
+            storeSettings.couponDiscount = parseFloat(document.getElementById('setting-coupon-discount').value) || 0;
+            storeSettings.couponExpiry1 = document.getElementById('setting-coupon-expiry-1').value;
+
+            storeSettings.couponCode2 = document.getElementById('setting-coupon-code-2').value.trim().toUpperCase();
+            storeSettings.couponDiscount2 = parseFloat(document.getElementById('setting-coupon-discount-2').value) || 0;
+            storeSettings.couponExpiry2 = document.getElementById('setting-coupon-expiry-2').value;
+
+            storeSettings.announcementText = document.getElementById('setting-announcement-text').value;
+            storeSettings.announcementEnabled = document.getElementById('setting-announcement-enabled').value;
+            storeSettings.primaryColor = document.getElementById('setting-primary-color').value;
+            storeSettings.accentColor = document.getElementById('setting-accent-color').value;
+
+            const heroUploadInput = document.getElementById('setting-hero-upload');
+            const heroUrlInput = document.getElementById('setting-hero-bg').value.trim();
+
+            if (heroUploadInput.files && heroUploadInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    storeSettings.heroBg = e.target.result;
+                    finalizeSaveSettings();
+                };
+                reader.readAsDataURL(heroUploadInput.files[0]);
+            } else {
+                storeSettings.heroBg = heroUrlInput;
+                finalizeSaveSettings();
+            }
+        }
+
+        function finalizeSaveSettings() {
+            localStorage.setItem('sayed_settings_v12', JSON.stringify(storeSettings));
+            applySettings();
+            calculateTotal();
+            alert("Settings updated successfully! ✨");
+        }
+
+        const defaultProducts = [
+            { id: 1, name: 'Premium Smartwatch', category: 'Gadget', price: 3500, originalPrice: 4500, stock: 10, image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=500&q=60' },
+            { id: 2, name: 'Classic Minimalist Tee', category: 'Cloth', price: 800, originalPrice: 1000, stock: 5, image: 'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=500&q=60' },
+            { id: 3, name: 'Genuine Leather Wallet', category: 'Accessory', price: 600, originalPrice: 900, stock: 8, image: 'https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=500&q=60' }
+        ];
+
+        let storeProducts = JSON.parse(localStorage.getItem('sayed_products_v2')) || defaultProducts;
+        let currentCategoryFilter = 'All';
+
+        function saveProductsToStorage() {
+            localStorage.setItem('sayed_products_v2', JSON.stringify(storeProducts));
+            renderStoreProducts(currentCategoryFilter);
+            if(document.getElementById('admin-dashboard').style.display === 'flex') { renderAdminProducts(); }
+        }
+
+        function filterCategory(category) {
+            currentCategoryFilter = category;
+            document.querySelectorAll('.nav-collection-pill').forEach(btn => btn.classList.remove('active'));
+            if(category === 'All') document.getElementById('pill-all').classList.add('active');
+            if(category === 'Gadget') document.getElementById('pill-gadget').classList.add('active');
+            if(category === 'Cloth') document.getElementById('pill-cloth').classList.add('active');
+            if(category === 'Accessory') document.getElementById('pill-accessory').classList.add('active');
+            renderStoreProducts(category);
+            document.getElementById('shop-container').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function renderStoreProducts(filter = 'All') {
+            const grid = document.getElementById('dynamic-product-grid');
+            const heading = document.getElementById('section-heading');
+            const t = i18n[currentLang];
+            heading.innerText = filter === 'All' ? t.featuredCollection : `${filter} Collection`;
+            grid.innerHTML = '';
+            
+            const filteredProducts = filter === 'All' ? storeProducts : storeProducts.filter(p => (p.category || 'Gadget').toLowerCase() === filter.toLowerCase());
+
+            filteredProducts.forEach(p => {
+                const isOutOfStock = p.stock <= 0;
+                const stockBadge = isOutOfStock ? `<span class="stock-badge stock-out">${t.outOfStock}</span>` : `<span class="stock-badge stock-in">${t.inStock}</span>`;
+                let priceHtml = `<div class="product-price">৳ ${p.price}</div>`;
+                if (p.originalPrice && p.originalPrice > p.price) {
+                    const discountPercent = Math.round(((p.originalPrice - p.price) / p.originalPrice) * 100);
+                    priceHtml = `<div class="product-price-box"><div class="product-price-row"><span class="original-price">৳ ${p.originalPrice}</span><span class="discount-badge-tag">${discountPercent}% ${t.off}</span></div><div class="product-price">৳ ${p.price}</div></div>`;
+                }
+
+                grid.innerHTML += `
+                    <div class="product-card">
+                        ${stockBadge}
+                        <img src="${p.image}" alt="${p.name}" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1594322436404-5a0526db4d13?auto=format&fit=crop&w=250&q=80';">
+                        <div class="product-info">
+                            <h3 style="font-size:15px; font-weight:600; margin-bottom: 5px;">${p.name}</h3>
+                            <div class="product-price-box">${priceHtml}</div>
+                            <button class="add-to-cart" ${isOutOfStock ? 'disabled' : ''} onclick="addToCart(${p.id})">${isOutOfStock ? t.unavailable : t.addToBag}</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function renderAdminProducts() {
+            const list = document.getElementById('admin-list');
+            list.innerHTML = '';
+            storeProducts.forEach(p => {
+                list.innerHTML += `
+                    <div class="admin-item">
+                        <div style="display: flex; align-items: center;">
+                            <img src="${p.image}" alt="${p.name}">
+                            <div><strong>${p.name}</strong><br><span style="color: var(--accent-color);">৳ ${p.price}</span> | Stock: ${p.stock}</div>
+                        </div>
+                        <div class="admin-actions">
+                            <button class="btn-edit" onclick="editProduct(${p.id})">Edit</button>
+                            <button class="btn-delete" onclick="deleteProduct(${p.id})">Delete</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function saveProduct() {
+            const idInput = document.getElementById('edit-id').value;
+            const name = document.getElementById('prod-name').value.trim();
+            const category = document.getElementById('prod-category').value;
+            const price = parseInt(document.getElementById('prod-price').value);
+            const stock = parseInt(document.getElementById('prod-stock').value);
+            const file = document.getElementById('prod-image').files[0];
+
+            if (!name || isNaN(price) || isNaN(stock)) { alert("Please fill out all required fields."); return; }
+
+            if (idInput && !file) {
+                const idx = storeProducts.findIndex(p => p.id == idInput);
+                if (idx !== -1) { storeProducts[idx].name = name; storeProducts[idx].category = category; storeProducts[idx].price = price; storeProducts[idx].stock = stock; }
+                finishSavingProduct(); return;
+            }
+
+            if (!file && !idInput) {
+                alert("Please select a product image file.");
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                if (idInput) {
+                    const idx = storeProducts.findIndex(p => p.id == idInput);
+                    if (idx !== -1) { storeProducts[idx] = { id: parseInt(idInput), name, category, price, stock, image: e.target.result }; }
+                } else {
+                    storeProducts.push({ id: Date.now(), name, category, price, stock, image: e.target.result });
+                }
+                finishSavingProduct();
+            };
+            if(file) {
+                reader.readAsDataURL(file);
+            } else {
+                finishSavingProduct();
+            }
+        }
+
+        function finishSavingProduct() {
+            document.getElementById('edit-id').value = "";
+            document.getElementById('prod-name').value = '';
+            document.getElementById('prod-price').value = '';
+            document.getElementById('prod-stock').value = '';
+            document.getElementById('prod-image').value = '';
+            saveProductsToStorage();
+        }
+
+        function editProduct(id) {
+            const p = storeProducts.find(item => item.id === id);
+            if(p) {
+                document.getElementById('edit-id').value = p.id;
+                document.getElementById('prod-name').value = p.name;
+                document.getElementById('prod-price').value = p.price;
+                document.getElementById('prod-stock').value = p.stock;
+                document.getElementById('tab-products').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function deleteProduct(id) {
+            if(confirm("Delete product?")) { storeProducts = storeProducts.filter(p => p.id !== id); saveProductsToStorage(); }
+        }
+
+        let customerOrders = JSON.parse(localStorage.getItem('sayed_orders_v2')) || [];
+
+        function renderAdminOrders() {
+            const list = document.getElementById('admin-orders-list');
+            list.innerHTML = '';
+            if (customerOrders.length === 0) { list.innerHTML = '<p>No orders yet.</p>'; return; }
+            for(let i = customerOrders.length - 1; i >= 0; i--) {
+                const o = customerOrders[i];
+                let itemsStr = o.items.map(it => `${it.name} (x${it.quantity})`).join(', ');
+                list.innerHTML += `<div class="order-card"><h4>Order #${o.id}</h4><p><strong>Customer:</strong> ${o.name} (${o.phone})</p><p><strong>Address:</strong> ${o.address}</p><p><strong>Items:</strong> ${itemsStr}</p><p style="color:var(--accent-color); font-weight:bold;">Total: ৳${o.total}</p></div>`;
+            }
+        }
+
+        function clearOrders() { if(confirm("Clear orders?")) { customerOrders = []; localStorage.setItem('sayed_orders_v2', JSON.stringify(customerOrders)); renderAdminOrders(); } }
+
+        function toggleAdmin() { document.getElementById('admin-dashboard').style.display = 'flex'; renderAdminProducts(); renderAdminOrders(); }
+        function closeAdmin() { document.getElementById('admin-dashboard').style.display = 'none'; }
+        function switchAdminTab(tab) {
+            document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.admin-sidebar button').forEach(b => b.classList.remove('active'));
+            document.getElementById('tab-' + tab).classList.add('active');
+            document.getElementById('nav-' + tab).classList.add('active');
+        }
+
+        let cart = [];
+        let currentDiscountPercentage = 0;
+
+        function addToCart(id) {
+            const prod = storeProducts.find(p => p.id === id);
+            if (!prod || prod.stock <= 0) return;
+            const item = cart.find(i => i.id === id);
+            if (item) { if(item.quantity < prod.stock) item.quantity++; else { alert("Max stock reached!"); return; } }
+            else { cart.push({ id: prod.id, name: prod.name, price: prod.price, quantity: 1 }); }
+            updateCartCount(); calculateTotal();
+        }
+
+        function changeQuantity(id, delta) {
+            const item = cart.find(i => i.id === id);
+            const prod = storeProducts.find(p => p.id === id);
+            if (!item) return;
+            const newQty = item.quantity + delta;
+            if (newQty <= 0) removeFromCart(id);
+            else if (prod && newQty > prod.stock) alert("Max stock reached!");
+            else { item.quantity = newQty; updateCartCount(); calculateTotal(); }
+        }
+
+        function removeFromCart(id) { cart = cart.filter(i => i.id !== id); updateCartCount(); calculateTotal(); }
+        function updateCartCount() { document.getElementById('cart-count').innerText = cart.reduce((s, i) => s + i.quantity, 0); }
+        function toggleCheckout() {
+            const c = document.getElementById('checkout-section');
+            c.style.display = c.style.display === 'block' ? 'none' : 'block';
+            if(c.style.display === 'block') { c.scrollIntoView({ behavior: 'smooth' }); calculateTotal(); }
+        }
+
+        function onAddressChange() {
+            const div = document.getElementById('addr-division').value.trim().toLowerCase();
+            const dist = document.getElementById('addr-district').value.trim().toLowerCase();
+            document.getElementById('delivery-area').value = (div === 'dhaka' || dist === 'dhaka') ? "70" : "120";
+            calculateTotal();
+        }
+
+        function applyCoupon() {
+            const code = document.getElementById('coupon-code').value.trim().toUpperCase();
+            const msg = document.getElementById('coupon-message');
+            const t = i18n[currentLang];
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            let discountFound = 0;
+            let matchedCodeName = "";
+
+            const code1 = (storeSettings.couponCode || "").toUpperCase();
+            const val1 = (storeSettings.couponDiscount || 0) / 100;
+            const expiry1 = storeSettings.couponExpiry1 ? new Date(storeSettings.couponExpiry1) : null;
+
+            const code2 = (storeSettings.couponCode2 || "").toUpperCase();
+            const val2 = (storeSettings.couponDiscount2 || 0) / 100;
+            const expiry2 = storeSettings.couponExpiry2 ? new Date(storeSettings.couponExpiry2) : null;
+
+            if (code && code === code1 && val1 > 0) {
+                if (expiry1 && expiry1 < today) {
+                    msg.style.color = 'var(--danger-color)';
+                    msg.innerText = t.expiredCode;
+                    currentDiscountPercentage = 0;
+                    calculateTotal();
+                    return;
+                }
+                discountFound = val1;
+                matchedCodeName = code1;
+            } else if (code && code === code2 && val2 > 0) {
+                if (expiry2 && expiry2 < today) {
+                    msg.style.color = 'var(--danger-color)';
+                    msg.innerText = t.expiredCode;
+                    currentDiscountPercentage = 0;
+                    calculateTotal();
+                    return;
+                }
+                discountFound = val2;
+                matchedCodeName = code2;
+            }
+
+            if (discountFound > 0) {
+                currentDiscountPercentage = discountFound;
+                msg.style.color = 'var(--success-color)';
+                msg.innerText = `✔️ Promo "${matchedCodeName}" applied successfully (${(discountFound * 100)}% OFF)!`;
+                if (typeof confetti === 'function') {
+                    confetti({ particleCount: 60, spread: 60, origin: { y: 0.7 } });
+                }
+            } else {
+                currentDiscountPercentage = 0;
+                msg.style.color = 'var(--danger-color)';
+                msg.innerText = t.invalidCode;
+            }
+            calculateTotal();
+        }
+
+        function calculateTotal() {
+            let subtotal = cart.reduce((s, i) => s + (i.price * i.quantity), 0);
+            let delivery = parseInt(document.getElementById('delivery-area').value);
+            const threshold = storeSettings.freeDeliveryThreshold || 5000;
+            let isFree = subtotal >= threshold && subtotal > 0;
+            if (isFree) delivery = 0;
+            let discount = subtotal * currentDiscountPercentage;
+            let total = subtotal - discount + delivery;
+
+            const t = i18n[currentLang];
+            let html = `<h3 style="margin-bottom:12px; font-size:15px;">${t.bagItems}</h3>`;
+            if(cart.length === 0) html += `<p style="color:gray;">${t.emptyBag}</p>`;
+            cart.forEach(i => {
+                html += `<div class="cart-item"><span>${i.name}</span><div class="cart-item-controls"><button class="qty-btn" onclick="changeQuantity(${i.id}, -1)">-</button><span>${i.quantity}</span><button class="qty-btn" onclick="changeQuantity(${i.id}, 1)">+</button><span>৳ ${i.price * i.quantity}</span><button class="remove-btn" onclick="removeFromCart(${i.id})">✕</button></div></div>`;
+            });
+            html += `<div class="total-line" style="margin-top:15px;"><span>${t.subtotal}</span><span>৳ ${subtotal}</span></div><div class="total-line" style="color:var(--success-color);"><span>${t.discount}</span><span>- ৳ ${discount.toFixed(2)}</span></div><div class="total-line"><span>${t.delivery}</span><span>৳ ${delivery}</span></div><div class="total-line" style="font-size:17px; color:var(--accent-color);"><span>${t.total}</span><span>৳ ${total.toFixed(2)}</span></div>`;
+            document.getElementById('cart-summary').innerHTML = html;
+            return total;
+        }
+
+        function submitOrder() {
+            if (cart.length === 0) { alert("Bag is empty."); return; }
+            const name = document.getElementById('customer-name').value.trim();
+            const phone = document.getElementById('customer-phone').value.trim();
+            const email = document.getElementById('customer-email').value.trim();
+            const div = document.getElementById('addr-division').value.trim();
+            const dist = document.getElementById('addr-district').value.trim();
+            const thana = document.getElementById('addr-thana').value.trim();
+            const union = document.getElementById('addr-union').value.trim();
+
+            if(!name || !phone || !div || !dist || !thana || !union) { alert("Fill all required fields."); return; }
+
+            cart.forEach(ci => {
+                const p = storeProducts.find(item => item.id === ci.id);
+                if(p) p.stock = Math.max(0, p.stock - ci.quantity);
+            });
+            saveProductsToStorage();
+
+            const order = {
+                id: Math.floor(Math.random() * 9000) + 1000,
+                name, phone, email, address: `${div}, ${dist}, ${thana}, ${union}`,
+                paymentMethod: document.getElementById('payment-method').value,
+                items: [...cart], total: calculateTotal()
+            };
+
+            customerOrders.push(order);
+            localStorage.setItem('sayed_orders_v2', JSON.stringify(customerOrders));
+
+            // WhatsApp and Email auto-redirect code removed completely.
+
+            document.getElementById('successOverlay').style.display = 'block';
+            setTimeout(() => document.getElementById('successOverlay').classList.add('show'), 10);
+        }
+
+        function closePopup() {
+            document.getElementById('successOverlay').classList.remove('show');
+            setTimeout(() => document.getElementById('successOverlay').style.display = 'none', 400);
+            cart = []; updateCartCount();
+            document.getElementById('customer-name').value = '';
+            document.getElementById('customer-phone').value = '';
+            document.getElementById('customer-email').value = '';
+            document.getElementById('checkout-section').style.display = 'none';
+        }
+
+        window.onload = function() { applySettings(); setLanguage(currentLang); };
+    </script>
+</body>
+</html>
