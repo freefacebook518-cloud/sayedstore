@@ -5,8 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SAYED STORE | Premium Luxury Shopping</title>
     
-    <!-- Confetti Library for Coupon Animation -->
+    <!-- Confetti Library -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <!-- Firebase App & Realtime Database SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
 
     <style>
         /* Premium UI Variables */
@@ -29,11 +33,7 @@
         body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: var(--bg-color); color: var(--text-color); transition: background-color 0.3s; scroll-behavior: smooth; }
         h1, h2, h3 { margin: 0; }
         
-        button {
-            font-family: inherit;
-            outline: none;
-            user-select: none;
-        }
+        button { font-family: inherit; outline: none; user-select: none; }
 
         .btn-premium {
             background: var(--btn-gradient) !important;
@@ -50,9 +50,7 @@
             box-shadow: 0 12px 30px rgba(212, 175, 55, 0.5) !important;
             filter: brightness(1.08);
         }
-        .btn-premium:active {
-            transform: translateY(0) scale(0.98);
-        }
+        .btn-premium:active { transform: translateY(0) scale(0.98); }
 
         /* --- Header --- */
         header { 
@@ -73,47 +71,21 @@
         }
 
         .brand-segment {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            user-select: none;
-            padding: 18px 45px;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            text-align: center;
-            background: rgba(10, 10, 10, 0.85);
-            border-radius: 20px;
-            box-shadow: 0 16px 50px rgba(0, 0, 0, 0.6);
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(212, 175, 55, 0.25);
+            display: flex; align-items: center; justify-content: center; cursor: pointer; user-select: none;
+            padding: 18px 45px; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); text-align: center;
+            background: rgba(10, 10, 10, 0.85); border-radius: 20px; box-shadow: 0 16px 50px rgba(0, 0, 0, 0.6);
+            position: relative; overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.25);
         }
 
         .brand-segment::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: conic-gradient(
-                transparent, 
-                transparent, 
-                transparent, 
-                rgba(212, 175, 55, 0.95)
-            );
-            animation: runningBorderBeam 5s linear infinite;
-            pointer-events: none;
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: conic-gradient(transparent, transparent, transparent, rgba(212, 175, 55, 0.95));
+            animation: runningBorderBeam 5s linear infinite; pointer-events: none;
         }
 
         .brand-segment::after {
-            content: '';
-            position: absolute;
-            inset: 2px;
-            background: rgba(10, 10, 10, 0.92);
-            border-radius: 18px;
-            pointer-events: none;
-            z-index: 1;
+            content: ''; position: absolute; inset: 2px; background: rgba(10, 10, 10, 0.92);
+            border-radius: 18px; pointer-events: none; z-index: 1;
         }
 
         @keyframes runningBorderBeam {
@@ -121,77 +93,27 @@
             100% { transform: rotate(360deg); }
         }
 
-        .brand-segment:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.35);
-        }
+        .brand-segment:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 20px 60px rgba(212, 175, 55, 0.35); }
 
-        .logo-container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            line-height: 1;
-            position: relative;
-            z-index: 2;
-        }
-
+        .logo-container { display: flex; flex-direction: column; justify-content: center; align-items: center; line-height: 1; position: relative; z-index: 2; }
         .logo-top { 
-            font-family: 'Cinzel', 'Playfair Display', serif;
-            font-size: 42px; 
-            font-weight: 900; 
-            letter-spacing: 12px; 
-            text-transform: uppercase;
-            margin-right: -12px;
-            line-height: 1;
-            background: linear-gradient(180deg, #ffffff 20%, #f5e3a8 60%, #d4af37 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 6px 20px rgba(0, 0, 0, 0.9));
+            font-family: 'Cinzel', 'Playfair Display', serif; font-size: 42px; font-weight: 900; letter-spacing: 12px; text-transform: uppercase;
+            margin-right: -12px; line-height: 1; background: linear-gradient(180deg, #ffffff 20%, #f5e3a8 60%, #d4af37 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 6px 20px rgba(0, 0, 0, 0.9));
         }
-
         .logo-bottom { 
-            font-family: 'Inter', sans-serif;
-            font-size: 16px; 
-            font-weight: 800; 
-            letter-spacing: 18px; 
-            text-transform: uppercase;
-            margin-top: 8px;
-            margin-right: -18px;
-            background: linear-gradient(135deg, #ffffff 0%, #ffe285 40%, var(--accent-color) 70%, #997315 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 3px 12px rgba(212, 175, 55, 0.6));
+            font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 800; letter-spacing: 18px; text-transform: uppercase;
+            margin-top: 8px; margin-right: -18px; background: linear-gradient(135deg, #ffffff 0%, #ffe285 40%, var(--accent-color) 70%, #997315 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 3px 12px rgba(212, 175, 55, 0.6));
         }
 
         .lang-switch-container {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 4px;
-            border-radius: 30px;
-            border: 1px solid rgba(212, 175, 55, 0.35);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            backdrop-filter: blur(10px);
-            z-index: 3;
+            display: flex; align-items: center; gap: 4px; background: rgba(255, 255, 255, 0.05);
+            padding: 4px; border-radius: 30px; border: 1px solid rgba(212, 175, 55, 0.35);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); backdrop-filter: blur(10px); z-index: 3;
         }
-        .lang-btn {
-            background: transparent;
-            color: #d8d8d8;
-            border: none;
-            padding: 7px 15px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .lang-btn.active {
-            background: var(--btn-gradient);
-            color: #0b0b0b;
-            box-shadow: 0 2px 10px rgba(212, 175, 55, 0.4);
-        }
+        .lang-btn { background: transparent; color: #d8d8d8; border: none; padding: 7px 15px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.3s ease; }
+        .lang-btn.active { background: var(--btn-gradient); color: #0b0b0b; box-shadow: 0 2px 10px rgba(212, 175, 55, 0.4); }
 
         @media (max-width: 950px) {
             header { padding: 18px 20px; min-height: 100px; }
@@ -200,67 +122,26 @@
             .logo-bottom { font-size: 12px; letter-spacing: 10px; margin-right: -10px; }
         }
 
-        /* Nav Collections */
-        .category-filter-wrapper { 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            margin-bottom: 35px; 
-            width: 100%; 
-        }
-        
+        /* Collections Nav */
+        .category-filter-wrapper { display: flex; flex-direction: column; align-items: center; margin-bottom: 35px; width: 100%; }
         .collections-nav-container {
-            display: flex; 
-            align-items: center; 
-            justify-content: flex-start; 
-            gap: 10px;
-            background: #ffffff; 
-            padding: 10px 16px; 
-            border-radius: 50px;
-            border: 1.5px solid rgba(212, 175, 55, 0.6); 
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-            max-width: 100%; 
-            overflow-x: auto; 
-            scrollbar-width: none;
-            -webkit-overflow-scrolling: touch;
+            display: flex; align-items: center; justify-content: flex-start; gap: 10px;
+            background: #ffffff; padding: 10px 16px; border-radius: 50px;
+            border: 1.5px solid rgba(212, 175, 55, 0.6); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            max-width: 100%; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch;
         }
-        @media(min-width: 768px) {
-            .collections-nav-container { justify-content: center; }
-        }
-        
+        @media(min-width: 768px) { .collections-nav-container { justify-content: center; } }
         .collections-nav-container::-webkit-scrollbar { display: none; }
         
         .nav-collection-pill { 
-            color: #1a1a1a; 
-            background: #f1f3f5; 
-            border: 1px solid #e2e8f0;
-            padding: 10px 20px; 
-            border-radius: 30px; 
-            font-weight: 700; 
-            font-size: 13px; 
-            letter-spacing: 0.5px; 
-            text-transform: uppercase; 
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); 
-            cursor: pointer; 
-            white-space: nowrap; 
-            display: inline-flex; 
-            align-items: center; 
-            gap: 8px;
+            color: #1a1a1a; background: #f1f3f5; border: 1px solid #e2e8f0; padding: 10px 20px; border-radius: 30px; 
+            font-weight: 700; font-size: 13px; letter-spacing: 0.5px; text-transform: uppercase; 
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer; white-space: nowrap; display: inline-flex; align-items: center; gap: 8px;
         }
-        
-        .nav-collection-pill:hover { 
-            color: #000; 
-            border-color: var(--accent-color); 
-            background: #e2e8f0; 
-        }
-        
+        .nav-collection-pill:hover { color: #000; border-color: var(--accent-color); background: #e2e8f0; }
         .nav-collection-pill.active { 
-            color: #0b0b0b !important; 
-            background: var(--btn-gradient) !important;
-            border-color: var(--accent-color) !important; 
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4) !important; 
-            font-weight: 800 !important; 
-            transform: translateY(-1px);
+            color: #0b0b0b !important; background: var(--btn-gradient) !important; border-color: var(--accent-color) !important; 
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4) !important; font-weight: 800 !important; transform: translateY(-1px);
         }
 
         /* Announcement Bar */
@@ -276,11 +157,7 @@
         .announcement-item .sep-dot { color: var(--accent-color); font-size: 10px; }
 
         /* Floating Cart Button */
-        .cart-btn { 
-            position: fixed; right: 25px; bottom: 25px; 
-            z-index: 999; padding: 14px 26px; font-size: 15px; 
-            border-radius: 50px; display: flex; align-items: center; gap: 10px;
-        }
+        .cart-btn { position: fixed; right: 25px; bottom: 25px; z-index: 999; padding: 14px 26px; font-size: 15px; border-radius: 50px; display: flex; align-items: center; gap: 10px; }
 
         /* Hero Section */
         .hero { 
@@ -311,9 +188,7 @@
         .stock-in { background-color: var(--success-color); }
         .stock-out { background-color: var(--danger-color); }
 
-        .add-to-cart { 
-            border: none; padding: 12px 20px; border-radius: 8px; font-size: 14px; font-weight: 700; width: 90%; 
-        }
+        .add-to-cart { border: none; padding: 12px 20px; border-radius: 8px; font-size: 14px; font-weight: 700; width: 90%; }
         .add-to-cart:disabled { background: #e0e0e0 !important; color: #888888 !important; cursor: not-allowed; box-shadow: none !important; transform: none !important; }
 
         /* Checkout Panel */
@@ -339,7 +214,7 @@
         .coupon-box input { margin: 0 !important; flex: 1; }
         .apply-btn { border: none; padding: 12px 24px; border-radius: 8px; font-weight: bold; cursor: pointer; white-space: nowrap; }
 
-        /* Secret Admin Dashboard */
+        /* Admin Dashboard */
         .admin-dashboard { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #f4f6f9; z-index: 2000; font-family: inherit; flex-direction: column; overflow: hidden; }
         @media(min-width: 768px) { .admin-dashboard { flex-direction: row; } }
         .admin-sidebar { width: 100%; background: #161616; color: white; padding: 15px; display: flex; flex-direction: row; flex-wrap: wrap; gap: 8px; justify-content: space-between; flex-shrink: 0; }
@@ -604,9 +479,22 @@
     </div>
 
     <script>
-        const liveChannel = new BroadcastChannel('sayed_store_live_sync');
-        const ADMIN_PASSWORD = "admin123";
+        // --- FIREBASE INITIALIZATION ---
+        const firebaseConfig = {
+            apiKey: "AIzaSyB1nTvqpEwOmqwFYEyxSFAgANv_bopGVrw",
+            authDomain: "sayed-bc8cf.firebaseapp.com",
+            databaseURL: "https://sayed-bc8cf-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "sayed-bc8cf",
+            storageBucket: "sayed-bc8cf.firebasestorage.app",
+            messagingSenderId: "6579499907",
+            appId: "1:6579499907:web:30056fd3c5b03c87e03cb6",
+            measurementId: "G-TYHNDSY1D6"
+        };
 
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
+        const ADMIN_PASSWORD = "admin123";
         let currentLang = localStorage.getItem('sayed_lang') || 'en';
 
         const i18n = {
@@ -688,7 +576,7 @@
             }
         };
 
-        let storeSettings = JSON.parse(localStorage.getItem('sayed_settings_v12')) || {
+        let storeSettings = {
             logoText: "SAYED",
             logoHighlight: "STORE",
             adminEmail: "sayedislam347@gmail.com",
@@ -710,7 +598,60 @@
             announcementEnabled: "true"
         };
 
-        // Keyboard Shortcut for Admin Access: Ctrl + Shift + A
+        const defaultProducts = [
+            { id: 1, name: 'Premium Smartwatch', category: 'Gadget', price: 3500, originalPrice: 4500, stock: 10, image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=500&q=60' },
+            { id: 2, name: 'Classic Minimalist Tee', category: 'Cloth', price: 800, originalPrice: 1000, stock: 5, image: 'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=500&q=60' },
+            { id: 3, name: 'Genuine Leather Wallet', category: 'Accessory', price: 600, originalPrice: 900, stock: 8, image: 'https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=500&q=60' }
+        ];
+
+        let storeProducts = [];
+        let customerOrders = [];
+        let currentCategoryFilter = 'All';
+
+        // --- REALTIME LISTENERS FROM FIREBASE ---
+        function initFirebaseSync() {
+            // Products sync
+            db.ref('products').on('value', (snapshot) => {
+                const data = snapshot.val();
+                if (data) {
+                    storeProducts = Array.isArray(data) ? data : Object.values(data);
+                } else {
+                    storeProducts = defaultProducts;
+                    db.ref('products').set(defaultProducts);
+                }
+                renderStoreProducts(currentCategoryFilter);
+                if (document.getElementById('admin-dashboard').style.display === 'flex') {
+                    renderAdminProducts();
+                }
+            });
+
+            // Settings sync
+            db.ref('settings').on('value', (snapshot) => {
+                const data = snapshot.val();
+                if (data) {
+                    storeSettings = { ...storeSettings, ...data };
+                } else {
+                    db.ref('settings').set(storeSettings);
+                }
+                applySettings();
+                calculateTotal();
+            });
+
+            // Orders sync
+            db.ref('orders').on('value', (snapshot) => {
+                const data = snapshot.val();
+                if (data) {
+                    customerOrders = Array.isArray(data) ? data : Object.values(data);
+                } else {
+                    customerOrders = [];
+                }
+                if (document.getElementById('admin-dashboard').style.display === 'flex') {
+                    renderAdminOrders();
+                }
+            });
+        }
+
+        // Keyboard Shortcut for Admin: Ctrl + Shift + A
         document.addEventListener('keydown', function(e) {
             if (e.ctrlKey && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
                 e.preventDefault();
@@ -718,22 +659,18 @@
             }
         });
 
-        // Mobile Friendly: Triple Tap on Logo Header to Open Admin
+        // Triple Tap on Logo Header to Open Admin
         let logoTapCount = 0;
         let logoTapTimer = null;
-
         function handleLogoClick() {
-            filterCategory('All'); // Performs default action
-            
+            filterCategory('All');
             logoTapCount++;
             if (logoTapCount === 1) {
-                logoTapTimer = setTimeout(() => {
-                    logoTapCount = 0;
-                }, 1000);
+                logoTapTimer = setTimeout(() => { logoTapCount = 0; }, 1000);
             } else if (logoTapCount >= 3) {
                 clearTimeout(logoTapTimer);
                 logoTapCount = 0;
-                promptAdminAccess(); // Triggers password popup
+                promptAdminAccess();
             }
         }
 
@@ -750,20 +687,6 @@
 
         function closeAdmin() { 
             document.getElementById('admin-dashboard').style.display = 'none'; 
-        }
-
-        liveChannel.onmessage = function(event) {
-            if (event.data && event.data.type === 'SYNC_STORE') {
-                storeProducts = JSON.parse(localStorage.getItem('sayed_products_v2')) || defaultProducts;
-                storeSettings = JSON.parse(localStorage.getItem('sayed_settings_v12')) || storeSettings;
-                applySettings();
-                renderStoreProducts(currentCategoryFilter);
-                calculateTotal();
-            }
-        };
-
-        function broadcastLiveUpdate() {
-            liveChannel.postMessage({ type: 'SYNC_STORE', timestamp: Date.now() });
         }
 
         function setLanguage(lang) {
@@ -881,27 +804,9 @@
         }
 
         function finalizeSaveSettings() {
-            localStorage.setItem('sayed_settings_v12', JSON.stringify(storeSettings));
-            applySettings();
-            calculateTotal();
-            broadcastLiveUpdate();
-            alert("Settings updated successfully! ✨");
-        }
-
-        const defaultProducts = [
-            { id: 1, name: 'Premium Smartwatch', category: 'Gadget', price: 3500, originalPrice: 4500, stock: 10, image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=500&q=60' },
-            { id: 2, name: 'Classic Minimalist Tee', category: 'Cloth', price: 800, originalPrice: 1000, stock: 5, image: 'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=500&q=60' },
-            { id: 3, name: 'Genuine Leather Wallet', category: 'Accessory', price: 600, originalPrice: 900, stock: 8, image: 'https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=500&q=60' }
-        ];
-
-        let storeProducts = JSON.parse(localStorage.getItem('sayed_products_v2')) || defaultProducts;
-        let currentCategoryFilter = 'All';
-
-        function saveProductsToStorage() {
-            localStorage.setItem('sayed_products_v2', JSON.stringify(storeProducts));
-            renderStoreProducts(currentCategoryFilter);
-            if(document.getElementById('admin-dashboard').style.display === 'flex') { renderAdminProducts(); }
-            broadcastLiveUpdate();
+            db.ref('settings').set(storeSettings).then(() => {
+                alert("Settings updated successfully and synced to Firebase! ✨");
+            });
         }
 
         function filterCategory(category) {
@@ -978,7 +883,13 @@
 
             if (idInput && !file) {
                 const idx = storeProducts.findIndex(p => p.id == idInput);
-                if (idx !== -1) { storeProducts[idx].name = name; storeProducts[idx].category = category; storeProducts[idx].price = price; storeProducts[idx].originalPrice = origPrice; storeProducts[idx].stock = stock; }
+                if (idx !== -1) { 
+                    storeProducts[idx].name = name; 
+                    storeProducts[idx].category = category; 
+                    storeProducts[idx].price = price; 
+                    storeProducts[idx].originalPrice = origPrice; 
+                    storeProducts[idx].stock = stock; 
+                }
                 finishSavingProduct(); return;
             }
 
@@ -988,7 +899,9 @@
             reader.onload = function(e) {
                 if (idInput) {
                     const idx = storeProducts.findIndex(p => p.id == idInput);
-                    if (idx !== -1) { storeProducts[idx] = { id: parseInt(idInput), name, category, price, originalPrice: origPrice, stock, image: e.target.result }; }
+                    if (idx !== -1) { 
+                        storeProducts[idx] = { id: parseInt(idInput), name, category, price, originalPrice: origPrice, stock, image: e.target.result }; 
+                    }
                 } else {
                     storeProducts.push({ id: Date.now(), name, category, price, originalPrice: origPrice, stock, image: e.target.result });
                 }
@@ -1004,7 +917,11 @@
             document.getElementById('prod-original-price').value = '';
             document.getElementById('prod-stock').value = '';
             document.getElementById('prod-image').value = '';
-            saveProductsToStorage();
+            
+            // Sync to Firebase
+            db.ref('products').set(storeProducts).then(() => {
+                alert("Product saved & synced to Firebase! 🚀");
+            });
         }
 
         function editProduct(id) {
@@ -1020,10 +937,13 @@
         }
 
         function deleteProduct(id) {
-            if(confirm("Delete product?")) { storeProducts = storeProducts.filter(p => p.id !== id); saveProductsToStorage(); }
+            if(confirm("Delete product?")) { 
+                storeProducts = storeProducts.filter(p => p.id !== id); 
+                db.ref('products').set(storeProducts).then(() => {
+                    alert("Product deleted & synced!");
+                });
+            }
         }
-
-        let customerOrders = JSON.parse(localStorage.getItem('sayed_orders_v2')) || [];
 
         function renderAdminOrders() {
             const list = document.getElementById('admin-orders-list');
@@ -1036,7 +956,14 @@
             }
         }
 
-        function clearOrders() { if(confirm("Clear orders?")) { customerOrders = []; localStorage.setItem('sayed_orders_v2', JSON.stringify(customerOrders)); renderAdminOrders(); } }
+        function clearOrders() { 
+            if(confirm("Clear all orders?")) { 
+                customerOrders = []; 
+                db.ref('orders').remove().then(() => {
+                    renderAdminOrders();
+                });
+            } 
+        }
 
         function switchAdminTab(tab) {
             document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
@@ -1151,11 +1078,12 @@
 
             if(!name || !phone || !div || !dist || !thana || !union) { alert("Fill all required fields."); return; }
 
+            // Reduce stock
             cart.forEach(ci => {
                 const p = storeProducts.find(item => item.id === ci.id);
                 if(p) p.stock = Math.max(0, p.stock - ci.quantity);
             });
-            saveProductsToStorage();
+            db.ref('products').set(storeProducts);
 
             const order = {
                 id: Math.floor(Math.random() * 9000) + 1000,
@@ -1165,7 +1093,7 @@
             };
 
             customerOrders.push(order);
-            localStorage.setItem('sayed_orders_v2', JSON.stringify(customerOrders));
+            db.ref('orders').set(customerOrders);
 
             document.getElementById('successOverlay').style.display = 'block';
             setTimeout(() => document.getElementById('successOverlay').classList.add('show'), 10);
@@ -1180,7 +1108,10 @@
             document.getElementById('checkout-section').style.display = 'none';
         }
 
-        window.onload = function() { applySettings(); setLanguage(currentLang); };
+        window.onload = function() { 
+            initFirebaseSync();
+            setLanguage(currentLang); 
+        };
     </script>
 </body>
 </html>
