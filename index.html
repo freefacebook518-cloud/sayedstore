@@ -12,7 +12,7 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
        (function(){
-          emailjs.init("XghymaQvLxGV_5RUK");
+          emailjs.init("DWi2EP5c781IZcxFw");
        })();
     </script>
 
@@ -251,10 +251,28 @@
         .order-items-table th, .order-items-table td { border: 1px solid #e1e1e1; padding: 6px 10px; text-align: left; }
         .order-items-table th { background: #f8f9fa; color: #111; }
 
+        @media print {
+            .no-print { display: none !important; }
+        }
+
         .settings-grid { display: grid; grid-template-columns: 1fr; gap: 20px; width: 100%; }
         @media(min-width: 768px) { .settings-grid { grid-template-columns: 1fr 1fr; gap: 25px; } }
 
         footer { background: var(--primary-color); color: var(--white); text-align: center; padding: 40px 20px; margin-top: 60px; font-size: 13px; position: relative; width: 100%; border-top: 1px solid rgba(255,255,255,0.08); }
+        
+        /* Professional Admin Login Footer Link Style */
+        .admin-login-link {
+            color: #777;
+            text-decoration: none;
+            font-size: 12px;
+            display: inline-block;
+            margin-top: 15px;
+            transition: color 0.3s;
+        }
+        .admin-login-link:hover {
+            color: var(--accent-color);
+            text-decoration: underline;
+        }
 
         /* Modal Overlay */
         .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(10px); z-index: 2000; opacity: 0; transition: opacity 0.4s ease; }
@@ -269,7 +287,8 @@
 <body>
 
     <header>
-        <div class="brand-segment" id="headerLogoSegment" onclick="handleLogoClick()">
+        <!-- Lロゴ আগের মতো সিম্পল ও সুন্দর রাখা হয়েছে -->
+        <div class="brand-segment" id="headerLogoSegment" onclick="filterCategory('All')">
             <div class="logo-container">
                 <span class="logo-top" id="display-logo-text">SAYED</span>
                 <span class="logo-bottom" id="display-logo-highlight">STORE</span>
@@ -381,10 +400,24 @@
 
             <div class="form-group">
                 <label id="lbl-payment">Payment Method</label>
-                <select id="payment-method">
+                <select id="payment-method" onchange="onPaymentMethodChange()">
                     <option value="Cash on Delivery">Cash on Delivery (COD)</option>
-                    <option value="Online Payment">Online Payment (bKash/Nagad)</option>
+                    <option value="bKash Personal">bKash (Send Money)</option>
+                    <option value="Nagad Personal">Nagad (Send Money)</option>
+                    <option value="Rocket Personal">Rocket (Send Money)</option>
                 </select>
+            </div>
+
+            <div id="manual-payment-box" style="display: none; background: #fff8e1; padding: 18px; border-radius: 10px; border: 1.5px dashed #d4af37; margin-bottom: 18px;">
+                <p id="payment-instruction" style="font-size: 13px; font-weight: 600; color: #333; margin-bottom: 12px; line-height: 1.5;"></p>
+                <div class="form-group" style="margin-bottom: 12px;">
+                    <label id="lbl-sender-number">যে নম্বর থেকে টাকা পাঠিয়েছেন (Sender Number) <span style="color:red;">*</span></label>
+                    <input type="tel" id="payment-sender-number" placeholder="e.g. 017XXXXXXXX">
+                </div>
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label id="lbl-trx-id">ট্রানজেকশন আইডি (TrxID) <span style="color:red;">*</span></label>
+                    <input type="text" id="payment-trx-id" placeholder="e.g. 9G8H7F6E5D" style="text-transform: uppercase;">
+                </div>
             </div>
 
             <button class="checkout-btn place-order-btn" id="btn-place-order" onclick="submitOrder()">Place Order</button>
@@ -438,6 +471,11 @@
                         <h3 style="margin-bottom: 12px; color: #161616; font-size: 15px; font-weight: 700;">Order Alert Integrations</h3>
                         <div class="form-group"><label>Admin Email Address</label><input type="text" id="setting-admin-email" placeholder="sayedislam347@gmail.com"></div>
                         <div class="form-group"><label>Admin WhatsApp Number</label><input type="text" id="setting-admin-whatsapp" placeholder="01768470014"></div>
+                        
+                        <h3 style="margin: 20px 0 12px 0; color: #161616; font-size: 15px; font-weight: 700;">Personal Payment Numbers</h3>
+                        <div class="form-group"><label>bKash Personal Number</label><input type="text" id="setting-bkash-num" placeholder="01768470014"></div>
+                        <div class="form-group"><label>Nagad Personal Number</label><input type="text" id="setting-nagad-num" placeholder="01768470014"></div>
+                        <div class="form-group"><label>Rocket Personal Number</label><input type="text" id="setting-rocket-num" placeholder="01768470014"></div>
 
                         <h3 style="margin: 20px 0 12px 0; color: #161616; font-size: 15px; font-weight: 700;">Branding & Navigation</h3>
                         <div class="form-group"><label>Logo Text (Top Word)</label><input type="text" id="setting-logo-text" placeholder="SAYED"></div>
@@ -477,9 +515,11 @@
     <footer>
         <h2 id="footer-logo" style="font-size: 18px; letter-spacing: 2px;">SAYED STORE</h2>
         <p style="margin: 8px 0; color: #aaa;">Email: sayedislam347@gmail.com | WhatsApp: 01768470014</p>
-        <p style="color: #888; margin-bottom: 10px;">
+        <p style="color: #888; margin-bottom: 5px;">
             &copy; 2026 <span id="footer-logo">SAYED STORE</span>. All Rights Reserved.
         </p>
+        <!-- Professional Admin Login Link Added Here -->
+        <a href="#" class="admin-login-link" onclick="event.preventDefault(); promptAdminAccess();">🔒 Admin Panel Login</a>
     </footer>
 
     <div class="overlay" id="successOverlay">
@@ -492,7 +532,6 @@
     </div>
 
     <script>
-        // --- FIREBASE INITIALIZATION ---
         const firebaseConfig = {
             apiKey: "AIzaSyB1nTvqpEwOmqwFYEyxSFAgANv_bopGVrw",
             authDomain: "sayed-bc8cf.firebaseapp.com",
@@ -594,6 +633,9 @@
             logoHighlight: "STORE",
             adminEmail: "sayedislam347@gmail.com",
             adminWhatsapp: "01768470014",
+            bkashNum: "01768470014",
+            nagadNum: "01768470014",
+            rocketNum: "01768470014",
             heroTitle: "Timeless Luxury, Curated For The Elite.",
             heroDesc: "Immerse yourself in an exclusive collection of next-generation gadgets, haute couture fashion, and signature artisanal accessories crafted for uncompromising distinction.",
             heroBg: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1920&q=80",
@@ -621,9 +663,7 @@
         let customerOrders = [];
         let currentCategoryFilter = 'All';
 
-        // --- REALTIME LISTENERS FROM FIREBASE ---
         function initFirebaseSync() {
-            // Products sync
             db.ref('products').on('value', (snapshot) => {
                 const data = snapshot.val();
                 if (data) {
@@ -638,7 +678,6 @@
                 }
             });
 
-            // Settings sync
             db.ref('settings').on('value', (snapshot) => {
                 const data = snapshot.val();
                 if (data) {
@@ -650,7 +689,6 @@
                 calculateTotal();
             });
 
-            // Orders sync
             db.ref('orders').on('value', (snapshot) => {
                 const data = snapshot.val();
                 if (data) {
@@ -664,28 +702,13 @@
             });
         }
 
-        // Keyboard Shortcut for Admin: Ctrl + Shift + A
+        // কীবোর্ড শর্টকাট রাখা হয়েছে: Ctrl + Shift + A প্রেস করলেও এডমিন প্যানেল আসবে
         document.addEventListener('keydown', function(e) {
             if (e.ctrlKey && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
                 e.preventDefault();
                 promptAdminAccess();
             }
         });
-
-        // Triple Tap on Logo Header to Open Admin
-        let logoTapCount = 0;
-        let logoTapTimer = null;
-        function handleLogoClick() {
-            filterCategory('All');
-            logoTapCount++;
-            if (logoTapCount === 1) {
-                logoTapTimer = setTimeout(() => { logoTapCount = 0; }, 1000);
-            } else if (logoTapCount >= 3) {
-                clearTimeout(logoTapTimer);
-                logoTapCount = 0;
-                promptAdminAccess();
-            }
-        }
 
         function promptAdminAccess() {
             const pass = prompt("🔐 Enter Secret Admin Password:");
@@ -749,6 +772,9 @@
             document.getElementById('setting-logo-highlight').value = storeSettings.logoHighlight;
             document.getElementById('setting-admin-email').value = storeSettings.adminEmail || "";
             document.getElementById('setting-admin-whatsapp').value = storeSettings.adminWhatsapp || "";
+            document.getElementById('setting-bkash-num').value = storeSettings.bkashNum || "01768470014";
+            document.getElementById('setting-nagad-num').value = storeSettings.nagadNum || "01768470014";
+            document.getElementById('setting-rocket-num').value = storeSettings.rocketNum || "01768470014";
             document.getElementById('setting-hero-title').value = storeSettings.heroTitle;
             document.getElementById('setting-hero-desc').value = storeSettings.heroDesc;
             document.getElementById('setting-hero-bg').value = storeSettings.heroBg || "";
@@ -766,6 +792,7 @@
             document.getElementById('setting-announcement-enabled').value = storeSettings.announcementEnabled || "true";
 
             updateAnnouncementBar();
+            onPaymentMethodChange();
         }
 
         function updateAnnouncementBar() {
@@ -779,11 +806,32 @@
             track.innerHTML = itemsHtml;
         }
 
+        function onPaymentMethodChange() {
+            const method = document.getElementById('payment-method').value;
+            const manualBox = document.getElementById('manual-payment-box');
+            const instruction = document.getElementById('payment-instruction');
+            
+            if (method.includes('Personal')) {
+                manualBox.style.display = 'block';
+                let providerName = method.split(' ')[0];
+                let targetNum = storeSettings.bkashNum || "01768470014";
+                if(providerName === 'Nagad') targetNum = storeSettings.nagadNum || "01768470014";
+                if(providerName === 'Rocket') targetNum = storeSettings.rocketNum || "01768470014";
+
+                instruction.innerHTML = `দয়া করে নিচের <b>${providerName} Personal</b> নম্বরে মোট টাকা <b>Send Money</b> করুন:<br><span style="color:#d4af37; font-size:16px; font-weight:bold;">${targetNum}</span><br>টাকা পাঠানোর পর আপনার নম্বর ও ট্রানজেকশন আইডি (TrxID) নিচে দিন।`;
+            } else {
+                manualBox.style.display = 'none';
+            }
+        }
+
         function saveSettings() {
             storeSettings.logoText = document.getElementById('setting-logo-text').value;
             storeSettings.logoHighlight = document.getElementById('setting-logo-highlight').value;
             storeSettings.adminEmail = document.getElementById('setting-admin-email').value.trim();
             storeSettings.adminWhatsapp = document.getElementById('setting-admin-whatsapp').value.trim();
+            storeSettings.bkashNum = document.getElementById('setting-bkash-num').value.trim();
+            storeSettings.nagadNum = document.getElementById('setting-nagad-num').value.trim();
+            storeSettings.rocketNum = document.getElementById('setting-rocket-num').value.trim();
             storeSettings.heroTitle = document.getElementById('setting-hero-title').value;
             storeSettings.heroDesc = document.getElementById('setting-hero-desc').value;
             storeSettings.freeDeliveryThreshold = parseFloat(document.getElementById('setting-free-delivery-threshold').value) || 0;
@@ -930,7 +978,6 @@
             document.getElementById('prod-stock').value = '';
             document.getElementById('prod-image').value = '';
             
-            // Sync to Firebase
             db.ref('products').set(storeProducts).then(() => {
                 alert("Product saved & synced to Firebase! 🚀");
             });
@@ -974,6 +1021,17 @@
                     });
                 }
 
+                let paymentDetailsHTML = `<p><strong>Payment Method:</strong> ${o.paymentMethod || 'COD'}</p>`;
+                if(o.paymentMethod && o.paymentMethod.includes('Personal')) {
+                    paymentDetailsHTML = `
+                        <p><strong>Payment Method:</strong> <span style="color:#d4af37; font-weight:bold;">${o.paymentMethod}</span></p>
+                        <p class="no-print" style="background: #fff8e1; padding: 6px; border-radius: 4px; border: 1px dashed #d4af37; margin-top:5px;">
+                            <small style="color:#b88e28; font-weight:bold; display:block;">🔒 Admin Secured Verification Details (Hidden on Print):</small>
+                            <strong>Sender Mobile:</strong> ${o.senderNumber || 'N/A'} | <strong>TrxID:</strong> ${o.trxId || 'N/A'}
+                        </p>
+                    `;
+                }
+
                 list.innerHTML += `
                     <div class="order-card">
                         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 8px; margin-bottom: 8px;">
@@ -984,7 +1042,7 @@
                         <p><strong>Phone Number:</strong> ${o.phone} ${o.backupPhone ? `(${o.backupPhone})` : ''}</p>
                         <p><strong>Email Address:</strong> ${o.email || 'N/A'}</p>
                         <p><strong>Delivery Address:</strong> ${o.address}</p>
-                        <p><strong>Payment Method:</strong> ${o.paymentMethod || 'COD'}</p>
+                        ${paymentDetailsHTML}
                         
                         <p style="margin-top: 10px; font-weight: 600;">Ordered Products:</p>
                         <table class="order-items-table">
@@ -999,7 +1057,10 @@
                                 ${itemsRows}
                             </tbody>
                         </table>
-                        <p style="text-align: right; margin-top: 10px; font-size: 16px; color: #997315; font-weight: bold;">Total Amount: ৳ ${o.total}</p>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+                            <button class="no-print" onclick="window.print()" style="background:#3498db; color:white; border:none; padding:6px 12px; border-radius:4px; font-size:12px; cursor:pointer; font-weight:600;">🖨️ Print Invoice</button>
+                            <p style="font-size: 16px; color: #997315; font-weight: bold; margin:0;">Total Amount: ৳ ${o.total}</p>
+                        </div>
                     </div>
                 `;
             }
@@ -1127,10 +1188,22 @@
             const thana = document.getElementById('addr-thana').value.trim();
             const union = document.getElementById('addr-union').value.trim();
             const detailAddr = document.getElementById('customer-address').value.trim();
+            const paymentMethod = document.getElementById('payment-method').value;
 
             if(!name || !phone || !div || !dist || !thana || !union) { alert("Fill all required fields."); return; }
 
-            // Reduce stock
+            let senderNumber = "";
+            let trxId = "";
+
+            if(paymentMethod.includes('Personal')) {
+                senderNumber = document.getElementById('payment-sender-number').value.trim();
+                trxId = document.getElementById('payment-trx-id').value.trim().toUpperCase();
+                if(!senderNumber || !trxId) {
+                    alert("দয়া করে আপনার সেন্ডার মোবাইল নম্বর এবং ট্রানজেকশন আইডি (TrxID) প্রদান করুন।");
+                    return;
+                }
+            }
+
             cart.forEach(ci => {
                 const p = storeProducts.find(item => item.id === ci.id);
                 if(p) p.stock = Math.max(0, p.stock - ci.quantity);
@@ -1141,7 +1214,6 @@
             const fullAddress = `${detailAddr ? detailAddr + ', ' : ''}${union}, ${thana}, ${dist}, ${div}`;
             const itemsDescription = cart.map(it => `${it.name} (Qty: ${it.quantity}) - ৳${it.price * it.quantity}`).join('\n');
 
-            // Order Date & Time Formatting
             const now = new Date();
             const dateStr = now.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
             const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
@@ -1155,7 +1227,9 @@
                 email,
                 address: fullAddress,
                 orderDate: orderDateTime,
-                paymentMethod: document.getElementById('payment-method').value,
+                paymentMethod,
+                senderNumber,
+                trxId,
                 items: [...cart], 
                 total: totalAmount
             };
@@ -1163,7 +1237,6 @@
             customerOrders.push(order);
             db.ref('orders').set(customerOrders);
 
-            // --- EmailJS Invoice Sender ---
             const emailParams = {
                 to_email: "sayedislam347@gmail.com",
                 customer_name: name,
@@ -1171,11 +1244,11 @@
                 customer_address: fullAddress,
                 order_items: itemsDescription,
                 order_total: totalAmount,
-                payment_method: order.paymentMethod,
+                payment_method: paymentMethod + (trxId ? ` | TrxID: ${trxId} | Sender: ${senderNumber}` : ''),
                 order_id: order.id
             };
 
-            emailjs.send('service_cer4m7h', 'template_c5pnw2g', emailParams)
+            emailjs.send('service_h2vgh7g', 'template_g3hk3e5', emailParams)
                 .then(function(response) {
                     console.log('Email sent successfully!', response.status, response.text);
                 }, function(error) {
@@ -1199,6 +1272,8 @@
             document.getElementById('addr-thana').value = '';
             document.getElementById('addr-union').value = '';
             document.getElementById('customer-address').value = '';
+            document.getElementById('payment-sender-number').value = '';
+            document.getElementById('payment-trx-id').value = '';
             document.getElementById('checkout-section').style.display = 'none';
         }
 
